@@ -1,4 +1,9 @@
-export const passwordErrorsConfig = [
+type LabelType = 'minLength' | 'lowercase' | 'uppercase' | 'number' | 'specialChar';
+
+export const passwordErrorsConfig: {
+	label: LabelType;
+	text: string;
+}[] = [
 	{
 		label: 'minLength',
 		text: '8+ characters',

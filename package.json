@@ -10,9 +10,11 @@
 		"check-files-format-with-autofix": "prettier \"./*.{ts,tsx,json}\" --check --write && prettier \"./src/**/*.{ts,tsx,json}\" --check --write"
 	},
 	"dependencies": {
+		"@hookform/resolvers": "^3.0.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-hook-form": "^7.43.9"
+		"react-hook-form": "^7.43.9",
+		"yup": "^1.0.2"
 	},
 	"devDependencies": {
 		"@types/node": "^18.15.11",

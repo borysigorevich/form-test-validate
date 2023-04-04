@@ -1,12 +1,29 @@
 import React from 'react';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
+import * as yup from 'yup';
 import { Input } from 'shared/Input';
 import { Button } from 'shared/Button';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 type FormValues = {
 	password: string;
 	email: string;
 };
+
+const userSchema = yup.object().shape({
+	email: yup
+		.string()
+		.required()
+		.matches(/^\S+@\S+\.\S+$/gi),
+	password: yup
+		.string()
+		.required()
+		.matches(/[!#*&$%@';:><]/g, { name: 'specialChar' })
+		.matches(/\d/g, { name: 'number' })
+		.matches(/[A-Z]/g, { name: 'uppercase' })
+		.matches(/[a-z]/g, { name: 'lowercase' })
+		.matches(/\S{8,}/g, { name: 'minLength' }),
+});
 
 export const Form = () => {
 	const methods = useForm({
@@ -15,6 +32,8 @@ export const Form = () => {
 			email: '',
 			password: '',
 		},
+		resolver: yupResolver(userSchema),
+		criteriaMode: 'all',
 	});
 
 	const onSubmit: SubmitHandler<FormValues> = (formValues) => {
