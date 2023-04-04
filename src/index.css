@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "ArialMT";
+    src: url("./assets/fonts/arialmt.ttf");
+}
+
+@layer base {
+    html, body, #root {
+        height: 100%;
+        font-family: 'ArialMT', sans-serif;
+    }
+}
