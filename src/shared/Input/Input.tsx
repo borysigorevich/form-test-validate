@@ -18,7 +18,7 @@ interface initialPasswordErrors {
 export const Input = ({ type, label }: InputProps) => {
 	const {
 		register,
-		formState: { errors, isDirty },
+		formState: { errors, dirtyFields },
 	} = useFormContext();
 
 	return (
@@ -41,9 +41,9 @@ export const Input = ({ type, label }: InputProps) => {
 							<div className="flex gap-2 text-success" key={value.label}>
 								<span
 									className={`min-w-[16px] text-center 
-									${!isError && isDirty ? 'text-[rgb(0,158,45)]' : 'text-[rgb(158,0,0)]'}`}
+									${!isError && dirtyFields['password'] ? 'text-[rgb(0,158,45)]' : 'text-[rgb(158,0,0)]'}`}
 								>
-									{!isError && isDirty ? '✔' : '✘'}
+									{!isError && dirtyFields['password'] ? '✔' : '✘'}
 								</span>
 								<span className="text-test">{value.text}</span>
 							</div>
