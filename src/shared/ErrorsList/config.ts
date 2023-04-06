@@ -25,3 +25,8 @@ export const passwordErrorsConfig: {
 		text: 'special character',
 	},
 ];
+
+export const ErrorsListConfig = {
+	password: passwordErrorsConfig,
+	email: [],
+};

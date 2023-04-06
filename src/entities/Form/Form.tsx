@@ -1,27 +1,21 @@
 import React from 'react';
 import { FormProvider, useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Input } from 'shared/Input';
-import { Button } from 'shared/Button';
-import { yupResolver } from '@hookform/resolvers/yup';
-
-type FormValues = {
-	password: string;
-	email: string;
-};
+import { ErrorsList } from 'shared/ErrorsList';
+import { SubmitButton } from 'shared/SubmitButton';
+import { FormValues } from './types';
 
 const userSchema = yup.object().shape({
-	email: yup
-		.string()
-		.required()
-		.matches(/^\S+@\S+\.\S+$/gi),
+	email: yup.string().required().email(),
 	password: yup
 		.string()
 		.required()
 		.matches(/[!#*&$%@';:><]/g, { name: 'specialChar' })
 		.matches(/\d/g, { name: 'number' })
-		.matches(/[A-Z]/g, { name: 'uppercase' })
-		.matches(/[a-z]/g, { name: 'lowercase' })
+		.matches(/[A-ZА-Я]/g, { name: 'uppercase' })
+		.matches(/[a-zа-я]/g, { name: 'lowercase' })
 		.matches(/\S{8,}/g, { name: 'minLength' }),
 });
 
@@ -47,10 +41,12 @@ export const Form = () => {
 				<form onSubmit={methods.handleSubmit(onSubmit)}>
 					<div className="grid gap-4 md:grid-cols-2">
 						<Input label="Email" type="email" />
-
-						<Input label="Password" type="password" />
+						<div>
+							<Input label="Password" type="password" />
+							<ErrorsList type="password" />
+						</div>
 					</div>
-					<Button isValid={methods.formState.isValid} />
+					<SubmitButton disabled={!methods.formState.isValid} />
 				</form>
 			</FormProvider>
 		</div>
